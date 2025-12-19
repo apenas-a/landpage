@@ -1,6 +1,11 @@
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Contact = () => {
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
+  const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation({ threshold: 0.1 });
+  const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation();
+
   const whatsappNumber = "5514991790555";
   const whatsappMessage = encodeURIComponent("Olá! Gostaria de solicitar um orçamento.");
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
@@ -29,7 +34,12 @@ const Contact = () => {
   return (
     <section id="contato" className="py-24 gradient-dark">
       <div className="section-container">
-        <div className="text-center mb-16">
+        <div
+          ref={titleRef}
+          className={`text-center mb-16 transition-all duration-700 ${
+            titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
           <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight mb-4">
             Entre em <span className="text-gradient-molten">Contato</span>
           </h2>
@@ -40,22 +50,27 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          {contactInfo.map((info) => (
+        <div ref={cardsRef} className="grid md:grid-cols-3 gap-8 mb-12">
+          {contactInfo.map((info, index) => (
             <a
               key={info.label}
               href={info.href}
               target={info.label !== "E-mail" ? "_blank" : undefined}
               rel="noopener noreferrer"
-              className="bg-card border border-border rounded-lg p-8 text-center hover:border-accent/50 transition-all duration-300 group"
+              className={`bg-card border border-border rounded-lg p-8 text-center transition-all duration-700 group hover:border-accent/50 hover:-translate-y-3 hover:shadow-2xl hover:shadow-accent/10 ${
+                cardsVisible
+                  ? "opacity-100 translate-y-0 scale-100"
+                  : "opacity-0 translate-y-10 scale-95"
+              }`}
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
-              <div className="w-16 h-16 rounded-full gradient-molten flex items-center justify-center mx-auto mb-6 group-hover:animate-glow-pulse">
+              <div className="w-16 h-16 rounded-full gradient-molten flex items-center justify-center mx-auto mb-6 group-hover:animate-glow-pulse transition-all duration-300 group-hover:scale-110">
                 <info.icon size={28} className="text-accent-foreground" />
               </div>
-              <h3 className="font-heading text-lg font-semibold uppercase mb-2 text-foreground">
+              <h3 className="font-heading text-lg font-semibold uppercase mb-2 text-foreground group-hover:text-accent transition-colors duration-300">
                 {info.label}
               </h3>
-              <p className="text-foreground/70 group-hover:text-accent transition-colors">
+              <p className="text-foreground/70 group-hover:text-accent transition-colors duration-300">
                 {info.value}
               </p>
             </a>
@@ -63,14 +78,19 @@ const Contact = () => {
         </div>
 
         {/* WhatsApp CTA */}
-        <div className="text-center">
+        <div
+          ref={ctaRef}
+          className={`text-center transition-all duration-700 ${
+            ctaVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+          }`}
+        >
           <a
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-[#25D366] text-background px-8 py-4 rounded-lg font-semibold uppercase tracking-wide text-lg hover:bg-[#20BA5A] transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="inline-flex items-center gap-3 bg-[#25D366] text-background px-8 py-4 rounded-lg font-semibold uppercase tracking-wide text-lg hover:bg-[#20BA5A] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-1"
           >
-            <MessageCircle size={24} />
+            <MessageCircle size={24} className="animate-pulse" />
             Fale pelo WhatsApp
           </a>
         </div>
