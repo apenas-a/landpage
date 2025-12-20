@@ -7,8 +7,11 @@ const Contact = () => {
   const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation();
 
   const whatsappNumber = "5514991790555";
-  const whatsappMessage = encodeURIComponent("Olá! Gostaria de solicitar um orçamento.");
+  const whatsappMessage = encodeURIComponent("Olá! Gostaria de solicitar um orçamento para a Fundição Domínio.");
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+  
+  const googleMapsAddress = encodeURIComponent("Rua da Saudade, 30 - Distrito Industrial 2, Quintana - SP, 17674-228");
+  const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${googleMapsAddress}`;
 
   const contactInfo = [
     {
@@ -16,18 +19,21 @@ const Contact = () => {
       label: "E-mail",
       value: "contato@fundicaodominio.com.br",
       href: "mailto:contato@fundicaodominio.com.br",
+      external: false,
     },
     {
       icon: Phone,
       label: "WhatsApp",
       value: "(14) 99179-0555",
       href: whatsappLink,
+      external: true,
     },
     {
       icon: MapPin,
       label: "Localização",
-      value: "Quintana - SP",
-      href: "https://maps.google.com/?q=Quintana+SP",
+      value: "Rua da Saudade, 30 - Dist. Industrial 2, Quintana - SP",
+      href: googleMapsLink,
+      external: true,
     },
   ];
 
@@ -55,9 +61,9 @@ const Contact = () => {
             <a
               key={info.label}
               href={info.href}
-              target={info.label !== "E-mail" ? "_blank" : undefined}
-              rel="noopener noreferrer"
-              className={`bg-card border border-border rounded-lg p-8 text-center transition-all duration-700 group hover:border-accent/50 hover:-translate-y-3 hover:shadow-2xl hover:shadow-accent/10 ${
+              target={info.external ? "_blank" : undefined}
+              rel={info.external ? "noopener noreferrer" : undefined}
+              className={`bg-card border border-border rounded-lg p-8 text-center transition-all duration-700 group hover:border-accent/50 hover:-translate-y-3 hover:shadow-2xl hover:shadow-accent/10 cursor-pointer ${
                 cardsVisible
                   ? "opacity-100 translate-y-0 scale-100"
                   : "opacity-0 translate-y-10 scale-95"
