@@ -35,7 +35,7 @@ const Microstructures = () => {
   ];
 
   return (
-    <section id="microestruturas" className="py-24 bg-background relative overflow-hidden">
+    <section id="ligas" className="py-24 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-accent blur-3xl" />

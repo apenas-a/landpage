@@ -1,4 +1,4 @@
-import logo from "@/assets/logo-fundacao-dominio.jpg";
+import logo from "@/assets/logo-fundacao-dominio.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -17,6 +17,12 @@ const Footer = () => {
             </a>
             <a href="#sobre" className="text-foreground/60 hover:text-accent transition-colors text-sm">
               Sobre
+            </a>
+            <a href="#ligas" className="text-foreground/60 hover:text-accent transition-colors text-sm">
+              Ligas
+            </a>
+            <a href="#processo" className="text-foreground/60 hover:text-accent transition-colors text-sm">
+              Processo
             </a>
             <a href="#produtos" className="text-foreground/60 hover:text-accent transition-colors text-sm">
               Produtos

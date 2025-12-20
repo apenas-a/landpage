@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/logo-fundacao-dominio.jpg";
+import logo from "@/assets/logo-fundacao-dominio.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,6 +8,8 @@ const Header = () => {
   const navLinks = [
     { href: "#inicio", label: "Início" },
     { href: "#sobre", label: "Sobre" },
+    { href: "#ligas", label: "Ligas" },
+    { href: "#processo", label: "Processo" },
     { href: "#produtos", label: "Produtos" },
     { href: "#contato", label: "Contato" },
   ];
