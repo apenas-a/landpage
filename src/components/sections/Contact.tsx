@@ -53,12 +53,49 @@ const Contact = () => {
           </p>
         </div>
 
-        <div
-          ref={cardsRef}
-          className="grid lg:grid-cols-5 gap-8 mb-12 max-w-6xl mx-auto items-stretch"
-        >
-          {/* Coluna esquerda - Cartões de contato */}
-          <div className="lg:col-span-2 flex flex-col justify-center gap-5">
+        <div ref={cardsRef} className="max-w-6xl mx-auto mb-12 space-y-8">
+          {/* Mapa do Google Maps - destaque principal */}
+          <div
+            className={`transition-all duration-700 ${
+              cardsVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
+            <a
+              href={googleMapsLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block relative rounded-xl overflow-hidden border border-border/50 hover:border-accent/60 transition-all duration-500 shadow-2xl shadow-background/50 hover:shadow-accent/10 h-[420px] md:h-[500px] lg:h-[560px]"
+              aria-label="Abrir localização no Google Maps"
+            >
+              <iframe
+                title="Localização Fundição Domínio - Quintana, SP"
+                src={mapsEmbedSrc}
+                className="w-full h-full border-0 grayscale-[20%] contrast-110 group-hover:grayscale-0 transition-all duration-500"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+              {/* Overlay sutil com endereço */}
+              <div className="pointer-events-none absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/95 via-background/70 to-transparent p-5 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg gradient-molten flex items-center justify-center flex-shrink-0">
+                  <MapPin size={18} className="text-accent-foreground" />
+                </div>
+                <div>
+                  <p className="font-heading text-xs font-semibold uppercase tracking-wider text-accent">
+                    Nossa Localização
+                  </p>
+                  <p className="text-sm text-foreground/90 leading-tight">
+                    Rua da Saudade, 30 - Dist. Industrial 2, Quintana - SP
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          {/* Cartões de contato - abaixo do mapa */}
+          <div className="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
             {contactInfo.map((info, index) => (
               <a
                 key={info.label}
@@ -67,12 +104,11 @@ const Contact = () => {
                 rel={info.external ? "noopener noreferrer" : undefined}
                 className={`group relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-5 transition-all duration-500 hover:border-accent/60 hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/10 cursor-pointer overflow-hidden ${
                   cardsVisible
-                    ? "opacity-100 translate-x-0"
-                    : "opacity-0 -translate-x-10"
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-10"
                 }`}
-                style={{ transitionDelay: `${index * 150}ms` }}
+                style={{ transitionDelay: `${300 + index * 150}ms` }}
               >
-                {/* Glow effect on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div className="relative z-10 flex items-center gap-4">
@@ -90,46 +126,6 @@ const Contact = () => {
                 </div>
               </a>
             ))}
-          </div>
-
-          {/* Coluna direita - Mapa do Google Maps */}
-          <div
-            className={`lg:col-span-3 transition-all duration-700 delay-300 ${
-              cardsVisible
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 translate-x-10"
-            }`}
-          >
-            <a
-              href={googleMapsLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block relative rounded-xl overflow-hidden border border-border/50 hover:border-accent/60 transition-all duration-500 shadow-2xl shadow-background/50 hover:shadow-accent/10 h-full min-h-[320px] lg:min-h-[400px]"
-              aria-label="Abrir localização no Google Maps"
-            >
-              <iframe
-                title="Localização Fundição Domínio - Quintana, SP"
-                src={mapsEmbedSrc}
-                className="w-full h-full border-0 grayscale-[20%] contrast-110 group-hover:grayscale-0 transition-all duration-500"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
-              {/* Overlay sutil com endereço */}
-              <div className="pointer-events-none absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/95 via-background/70 to-transparent p-4 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg gradient-molten flex items-center justify-center flex-shrink-0">
-                  <MapPin size={18} className="text-accent-foreground" />
-                </div>
-                <div>
-                  <p className="font-heading text-xs font-semibold uppercase tracking-wider text-accent">
-                    Nossa Localização
-                  </p>
-                  <p className="text-sm text-foreground/90 leading-tight">
-                    Rua da Saudade, 30 - Dist. Industrial 2, Quintana - SP
-                  </p>
-                </div>
-              </div>
-            </a>
           </div>
         </div>
 
