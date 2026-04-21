@@ -28,14 +28,11 @@ const Contact = () => {
       href: whatsappLink,
       external: true,
     },
-    {
-      icon: MapPin,
-      label: "Localização",
-      value: "Rua da Saudade, 30 - Dist. Industrial 2, Quintana - SP",
-      href: googleMapsLink,
-      external: true,
-    },
   ];
+
+  // Embed do Google Maps centrado na localização da Fundição Domínio
+  const mapsEmbedSrc =
+    "https://www.google.com/maps?q=Rua+da+Saudade,+30+-+Distrito+Industrial+2,+Quintana+-+SP,+17674-228&output=embed";
 
   return (
     <section id="contato" className="py-24 gradient-dark">
