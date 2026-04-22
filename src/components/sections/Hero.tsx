@@ -1,5 +1,5 @@
 import { ArrowDown } from "lucide-react";
-import heroImage from "@/assets/hero-foundry.jpg";
+import heroVideo from "@/assets/hero-foundry.mp4";
 import { useEffect, useState } from "react";
 
 const Hero = () => {
@@ -14,16 +14,33 @@ const Hero = () => {
       id="inicio"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background Image */}
+      {/* Background Video */}
       <div className="absolute inset-0">
-        <img
-          src={heroImage}
-          alt="Fundição de metal"
-          className={`w-full h-full object-cover transition-all duration-1000 ${
-            isLoaded ? "scale-100 opacity-100" : "scale-110 opacity-0"
-          }`}
-        />
+        {/* Wrapper that scales the video up slightly so the bottom watermark is cropped out */}
+        <div className="absolute inset-0 overflow-hidden">
+          <video
+            src={heroVideo}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            aria-label="Vazamento de metal fundido em molde"
+            className={`absolute left-1/2 top-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover transition-all duration-1000 ${
+              isLoaded ? "scale-110 opacity-100" : "scale-125 opacity-0"
+            }`}
+            style={{
+              // Slight extra vertical scale + downward shift to push the Veo watermark
+              // (bottom-right corner) below the visible viewport.
+              transform: "translate(-50%, -52%) scale(1.12)",
+            }}
+          />
+        </div>
+
+        {/* Gradient overlays — reinforce theme and mask the bottom edge */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
+        {/* Extra dark band at the bottom to fully hide any residual watermark */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/90 to-transparent" />
       </div>
 
       {/* Content */}
